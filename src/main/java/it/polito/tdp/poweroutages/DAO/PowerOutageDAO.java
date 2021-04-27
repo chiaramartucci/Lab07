@@ -16,6 +16,12 @@ import it.polito.tdp.poweroutages.model.Nerc;
 
 public class PowerOutageDAO {
 	
+	List<Event> eventList;
+	
+	public List<Event> getEventList() {
+		return eventList;
+	}
+
 	public List<Nerc> getNercList() {
 
 		String sql = "SELECT id, value FROM nerc";
@@ -46,7 +52,7 @@ public class PowerOutageDAO {
 				" WHERE p.nerc_id=n.id AND n.value = ?"
 				+ "ORDER BY date_event_finished ASC";
 		
-		List<Event> eventList = new ArrayList<>();
+		eventList = new ArrayList<>();
 
 		try {
 			Connection conn = ConnectDB.getConnection();

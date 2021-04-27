@@ -41,19 +41,25 @@ public class Model {
 		if(contaPersoneCoinvolte(parziale) > maxPersoneCoinvolte) {
 			risultatoMigliore = new ArrayList<Event>(parziale);
 			maxPersoneCoinvolte = contaPersoneCoinvolte(risultatoMigliore);
+			return;
 		}
 		
-		for(int i=0; i<podao.getAllEvents(nerc).size(); i++) {
-			if(!parziale.contains(podao.getAllEvents(nerc).get(i))) {
-				if(isValida(parziale, x, y, podao.getAllEvents(nerc).get(i))==true) {
-					parziale.add(podao.getAllEvents(nerc).get(i));
-					cerca(x, y, parziale);
-					parziale.remove(parziale.size()-1);
+		else {
+			for(int i=0; i<podao.getAllEvents(nerc).size(); i++) {
+				if(!parziale.contains(podao.getEventList().get(i))) {
+					if(isValida(parziale, x, y, podao.getEventList().get(i))==true) {
+						parziale.add(podao.getEventList().get(i));
+						cerca(x, y, parziale);
+						parziale.remove(parziale.size()-1);
+					}
 				}
+				
 			}
-			
 		}
+		
+		
 	}
+	
 	
 	private int contaPersoneCoinvolte(List<Event> parziale) {
 		int somma=0;
@@ -76,11 +82,7 @@ public class Model {
 			somma = somma + e.getNumeroOre();
 		}
 		
-		if(somma<=y) {
-			valido=true;
-		}
-		
-		if(parziale.get(parziale.size()-1).getData_fine().getYear() - parziale.get(0).getData_fine().getYear()<= x) {
+		if(somma<=y && parziale.get(parziale.size()-1).getData_fine().getYear() - parziale.get(0).getData_fine().getYear()<= x) {
 			valido=true;
 		}
 		
